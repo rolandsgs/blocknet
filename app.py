@@ -12,6 +12,6 @@ def index():
             os.system("ansible-playbook -i playbooks/win unblock-internet.yml")
         elif request.form['enable']:
             os.system("ansible-playbook -i playbooks/win block-internet.yml")
-        return render_template('index.html'
+        return render_template('index.html')
     else:
         return render_template('index.html')
