@@ -9,9 +9,9 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         if request.form['disable']:
-            os.system("ansible -h")
+            os.system("ansible-playbook -i playbooks/win unblock-internet.yml")
         elif request.form['enable']:
-            os.system("ansible --version")
+            os.system("ansible-playbook -i playbooks/win block-internet.yml")
         return render_template('index.html'
     else:
         return render_template('index.html')
