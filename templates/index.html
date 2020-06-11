@@ -5,21 +5,25 @@
   <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
 <body>
-    <table>
-        <tr>
-          <th>Maquina</th>
-          <th>Status</th>
-        </tr>
-        <tr>
-          <td>L01M01W</td>
-          <td>
-            <form action="/" method='POST'>
-                <input type="submit" name="disable" value="submit">
-                <input type="submit" name="enable" value="submit">
-             </form>
-          </td>
-        </tr>
-      </table>
-
+  <table>
+    <tr>
+      <th>Maquina</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>L01M01W</td>
+      <td>
+        <form action="/" method='POST'>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+            <input type="submit" name="disable" value="submit">
+            <input type="submit" name="enable" value="submit">
+          </form>
+      </td>
+    </tr>
+  </table>
+  
 </body>
 </html>
