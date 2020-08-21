@@ -1,29 +1,135 @@
 <html>
 <head>
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="/static/style.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  
+  $("#loading").hide()  
+
+  $("#btnconnect").click(function(){
+    $.ajax({
+      type: "POST",
+      url: "/connect",
+      data: {"status":"CONECTAR"},
+      success: function(data){
+        if(data["status"] == "success"){
+          $("#btn-status").removeClass("btn-danger")
+          $("#btn-status").addClass("btn-success")
+          $("#btn-status").html("Conectado");
+        }
+        else {
+          alert("Não foi possivel realizar a operação!")
+        }
+      }
+    })
+  })
+
+
+  $("#btndisconnect").click(function(){
+    $.ajax({
+      type: "POST",
+      url: "/connect",
+      data: {"status":"DESCONECTAR"},
+      success: function(data){
+        if(data["status"] == "success"){
+          $("#btn-status").removeClass("btn-success")
+          $("#btn-status").addClass("btn-danger")
+          $("#btn-status").html("Desconectado");
+        }
+        else {
+          alert("Não foi possivel realizar a operação!")
+        }
+      }
+    })
+  })
+
+
+  $(document).ajaxStart(function () {
+        $("#loading").show();
+    }).ajaxStop(function () {
+        $("#loading").hide();
+    });
+})
+
+
+</script>
+
+
+
 </head>
 <body>
-  <table>
-    <tr>
-      <th>Maquina</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td>L01M01W</td>
-      <td>
-        <form action="/" method='POST'>
-            <label class="switch">
-              <input type="checkbox" checked>
-              <span class="slider round"></span>
-            </label>
-            <input type="submit" name="disable" value="submit">
-            <input type="submit" name="enable" value="submit">
-          </form>
-      </td>
-    </tr>
-  </table>
-  
+
+  <div id="ajaxform">
+
+    <div class="loader" id="loading"> </div>
+
+    <header>
+      <div class="container bg-info p-5 ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link" href="#">Features</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  <!---->
+  <main>
+
+  <div class="container my-5">
+
+
+
+    <div class="card-body text-center">
+      <h4 class="card-title">Máquinas</h4>
+      <p class="card-text">Gerenciamento de conexão com internet das máquinas dos laboratórios da CINFO</p>
+    </div>
+
+
+    <div class="card">
+
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Máquina</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ação </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>L01M01W</td>
+                <td>
+                  <button id="btn-status" type="button" class="btn btn-success">Success</button>
+                </td>  
+                <td>
+                  <button id="btnconnect" type="button" class="btn btn-primary">Conectar</button>
+                  <button id="btndisconnect" type="button" class="btn btn-primary">Desconectar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      </div>
+
+    </main>
+
+    <footer >
+      <div class="container bg-info p-5">
+      </div>
+    </footer>
+
+  </div>
 </body>
 </html>
